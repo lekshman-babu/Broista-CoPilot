@@ -102,11 +102,6 @@ cd ../frontend && npm install
 ```bash
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 npm run dev
-```
-
-### 5️⃣ Access App
-Go to [http://localhost:3000](http://localhost:3000)
-
 ---
 
 ## 🧪 Product Demo
