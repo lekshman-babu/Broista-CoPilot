@@ -98,12 +98,6 @@ cd backend && pip install -r requirements.txt
 cd ../frontend && npm install
 ```
 
-### 4️⃣ Run Backend & Frontend
-```bash
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
-npm run dev
----
-
 ## 🧪 Product Demo
 
 > “I’d like a Tuxedo Hot Chai, large, extra hot.”  
