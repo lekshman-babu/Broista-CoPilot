@@ -4,7 +4,7 @@
 ![AWS](https://img.shields.io/badge/Cloud-AWS-orange?logo=amazonaws)
 ![FastAPI](https://img.shields.io/badge/Backend-FastAPI-teal?logo=fastapi)
 ![Angular](https://img.shields.io/badge/Frontend-Angular-blue?logo=angular)
-![LLM](https://img.shields.io/badge/AI-LLM%20%2B%20BERT-purple)
+![LLM: Claude Sonnet 4.0](https://img.shields.io/badge/LLM-Claude%20Sonnet%204.0-purple)
 ![Hackathon](https://img.shields.io/badge/Hackathon-2nd%20Prize%20Winner-gold)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
