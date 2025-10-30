@@ -100,8 +100,13 @@ cd ../frontend && npm install
 
 ## 🧪 Product Demo
 
-> “I’d like a Tuxedo Hot Chai, large, extra hot.”  
-Millie transcribes → identifies modifiers → sends JSON → adds drink to cart in the POS UI.
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=<VIDEO_ID>" target="_blank">
+    <img src="https://github.com/user-attachments/assets/f306f5bf-7d9e-4ab9-8c3c-ef34924c1d78"
+         alt="Millie Product Demo"
+         width="900" />
+  </a>
+</div>
 
 ---
 
