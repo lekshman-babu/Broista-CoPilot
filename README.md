@@ -39,30 +39,6 @@ It listens to live customer–broista conversations, transcribes speech to text,
 
 ---
 
-## 🏗️ System Workflow
-
-The architecture combines AWS services with FastAPI and Claude Sonnet 3.5:
-
-```
-DutchPass (QR) → Frontend (React)
-               ↓
-          FastAPI Gateway
-               ↓
-         AWS Transcribe
-               ↓
-       Claude Sonnet 3.5 (LLM)
-               ↓
-      Matcher & Pricing Engine
-               ↓
-     POS/KDS Adapter  →  KDS Board
-                    ↘
-                    Notifier (Rush Radar)
-```
-
-This pipeline converts **voice → structured JSON → POS order**, fully automated in real time.
-
----
-
 ## 🧰 Tech Stack
 
 | Layer | Technologies |
@@ -74,6 +50,14 @@ This pipeline converts **voice → structured JSON → POS order**, fully automa
 | **Infrastructure** | AWS Lambda, EC2, mTLS Gateway, Docker |
 | **Security** | Server-side SigV4 auth, mTLS encryption |
 | **Analytics** | QR-based customer insights, ETA/rush forecasting |
+
+---
+
+## 🏗️ Technical Architecture
+
+<img width="100%" alt="Dutch Bros Order Processing Architecture" src="https://github.com/user-attachments/assets/ed24a012-922f-4612-b91c-72e649f079b9" />
+
+This architecture shows how **DutchPass (QR)**, **AWS Transcribe**, **Claude Sonnet**, and **FastAPI Gateway** interconnect to automate the order flow — bridging real-world interactions with backend intelligence.
 
 ---
 
