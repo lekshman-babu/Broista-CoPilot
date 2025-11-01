@@ -50,7 +50,11 @@
   border-radius: 3px;
   background: rgba(255, 255, 255, 0.3);
   outline: none;
-  -webkit-appearance: none;
+
+  /* ✅ Appearance reset for full cross-browser compatibility */
+  appearance: none;          /* Standard property */
+  -webkit-appearance: none;  /* Safari / Chrome */
+  -moz-appearance: none;     /* Firefox */
 }
 
 .time-slider::-webkit-slider-thumb {
@@ -572,6 +576,19 @@
   text-decoration: underline;
   color: #005bb5;
   cursor: pointer;
+}
+
+.analytics-panel.content-panel {
+  overflow-y: auto;              /* create its own scroll context */
+  overflow-x: hidden;
+  height: 100%;                  /* fill available space */
+  padding-bottom: 16px;          /* so bottom cards aren't cut off */
+  -webkit-overflow-scrolling: touch;
+}
+
+:host ::ng-deep app-customer-analytics .page {
+  min-height: auto !important;
+  padding-bottom: 32px;          /* extra breathing room at bottom */
 }
 
 /* Recommendations Section */

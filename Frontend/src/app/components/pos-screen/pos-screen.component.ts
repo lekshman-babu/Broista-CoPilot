@@ -11,24 +11,41 @@ import { ModifierSelectorComponent } from '../modifier-selector/modifier-selecto
 import { TranscriptionComponent } from '../transcription/transcription.component';
 import { FilterProductsPipe } from './filter-products.pipe';
 import { RecommendationService } from '../../services/recommendation.service';
+import { CustomerSelectionService } from '../../services/customer-selection.service'; 
+import { CustomerAnalyticsComponent } from '../customer-analytics/customer-analytics.component';
+import { QrScannerComponent } from '../qr/qr-scanner.component';
+
+
 
 @Component({
   selector: 'app-pos-screen',
   templateUrl: './pos-screen.component.html',
   styleUrls: ['./pos-screen.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ModifierSelectorComponent, TranscriptionComponent, FilterProductsPipe]
+  imports: [
+    CommonModule,
+    FormsModule,
+    ModifierSelectorComponent,
+    TranscriptionComponent,
+    FilterProductsPipe,
+    CustomerAnalyticsComponent, // ✅ Analytics tab
+    QrScannerComponent          // ✅ QR scanner tab
+  ]
 })
+
+
 export class PosScreenComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   
   products: Signal<Product[]>;
   recommendations: Signal<{ product: Product; reason: string }[]>;
   searchTerm = signal<string>('');
+  
 
   
   // --- STATE FOR TABS ---
-  activeTab = signal<'menu' | 'cart' | 'transcription'>('menu');
+  activeTab = signal<'menu' | 'cart' | 'transcription' | 'analytics' | 'qr'>('menu');
+
 
   // --- TIME SLIDER STATE ---
   currentMinutes = signal<number>(540); // 9:00 AM default
@@ -85,7 +102,8 @@ constructor(
   private menuService: MenuService, 
   private http: HttpClient,
   private transcriptionService: TranscriptionService,
-  private recommendationService: RecommendationService
+  private recommendationService: RecommendationService,
+  private customerSelection: CustomerSelectionService
 ) {
   this.categories = this.menuService.categories;
   this.imagePath = this.menuService.imagePath;
@@ -221,7 +239,7 @@ ngOnDestroy(): void {
   }
 
   // --- TAB NAVIGATION ---
-  setActiveTab(tab: 'menu' | 'cart' | 'transcription'): void {
+  setActiveTab(tab: 'menu' | 'cart' | 'transcription' | 'analytics' | 'qr'): void {
     this.activeTab.set(tab);
   }
   
@@ -294,6 +312,26 @@ ngOnDestroy(): void {
     this.currentOrder.update(items =>
       items.filter(item => item.id !== itemId)
     );
+  }
+
+  private sortModifiers(modifiers: any[]): any[] {
+    return modifiers
+      .map((m: any) => ({ ...m }))
+      .sort((x: any, y: any) => (x.name || '').localeCompare(y.name || ''));
+  }
+
+  private scrollCartToBottom(): void {
+    if (this.orderScroll) {
+      const el = this.orderScroll.nativeElement;
+      el.scrollTop = el.scrollHeight;
+    }
+  }
+
+  private scrollCartToTop(): void {
+    if (this.orderScroll) {
+      const el = this.orderScroll.nativeElement;
+      el.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }
 
   formatModifiers(item: OrderItem): string {
@@ -679,4 +717,43 @@ ngOnDestroy(): void {
     }
   });
 }
+
+/* ============================
+     QR SCAN → ANALYTICS BRIDGE
+  ============================ */
+  onQrFound(payload: string) {
+    const id = (this.extractCustomerId(payload) || '').toUpperCase();
+    if (!id) {
+      alert('QR does not contain a valid CUSTOMER_ID.');
+      return;
+    }
+    // Show analytics and publish the ID; the analytics component will react.
+    this.setActiveTab('analytics');
+    this.customerSelection.set(id); // <-- uses your service's .set(id)
+  }
+
+  // Accepts "CUST0002", URLs with ?id=/ ?customer_id=, or JSON {"customer_id":"CUST0002"}
+  private extractCustomerId(s: string): string | null {
+    const raw = (s || '').trim();
+
+    // direct like "CUST0002"
+    const plain = raw.match(/CUST\d+/i);
+    if (plain) return plain[0];
+
+    // URL query param
+    try {
+      const u = new URL(raw);
+      const qp = u.searchParams.get('id') || u.searchParams.get('customer_id');
+      if (qp) return qp.trim();
+    } catch {}
+
+    // JSON payload with id
+    try {
+      const j = JSON.parse(raw);
+      const val = j?.id || j?.customer_id || j?.CUSTOMER_ID;
+      if (typeof val === 'string') return val.trim();
+    } catch {}
+
+    return null;
+  }
 }

@@ -445,11 +445,6 @@ class MyTranscriptHandler(TranscriptResultStreamHandler):
                             {"status": "PARTIAL_SEGMENT", "transcript": transcript_text}
                         )
 
-
-from fastapi import WebSocket
-from typing import Dict
-import uuid
-
 # Store active WebSocket sessions
 latest_transcription_result=None
 @app.websocket("/ws/transcribe-live")

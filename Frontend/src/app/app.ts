@@ -9,7 +9,6 @@ import { WebsocketService } from './services/websocket.service';
   standalone: true, 
   imports: [
     PosScreenComponent,
-    TranscriptionComponent,
     NotificationBannerComponent
   ], 
   template: `

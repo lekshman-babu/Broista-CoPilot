@@ -34,12 +34,16 @@
       (click)="setActiveTab('transcription')">
       Live Transcription
     </button>
-    <button>
+    <button 
+      [class.active]="activeTab() === 'analytics'" 
+      (click)="setActiveTab('analytics')">
       Customer Analytics
     </button>
-  <button>
-    QR
-  </button>
+  <button
+      [class.active]="activeTab() === 'qr'"
+      (click)="setActiveTab('qr')">
+      QR
+    </button>
   </nav>
 
   <!-- Content Panels -->
@@ -187,6 +191,14 @@
     <div class="transcription-panel content-panel" *ngIf="activeTab() === 'transcription'">
       <app-transcription></app-transcription>
     </div>
+      <div class="qr-panel content-panel" *ngIf="activeTab() === 'qr'">
+    <app-qr-scanner (found)="onQrFound($event)"></app-qr-scanner>
+  </div>
+
+  <!-- Panel 5: Customer Analytics -->
+  <div class="analytics-panel content-panel" *ngIf="activeTab() === 'analytics'">
+    <app-customer-analytics></app-customer-analytics>
+  </div>
 
   </div>
 
