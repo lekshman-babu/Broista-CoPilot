@@ -1,137 +1,77 @@
-# ☕ **Millie – The Dutch Bros Co-Pilot**
+# 📄 **JobDescriptionExtractor – Job Description Scraper & Skill Ranker**
 
-![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)
-![AWS](https://img.shields.io/badge/Cloud-AWS-orange?logo=amazonaws)
-![FastAPI](https://img.shields.io/badge/Backend-FastAPI-teal?logo=fastapi)
-![Angular](https://img.shields.io/badge/Frontend-Angular-blue?logo=angular)
-![LLM: Claude Sonnet 4.0](https://img.shields.io/badge/LLM-Claude%20Sonnet%204.0-purple)
-![Hackathon](https://img.shields.io/badge/Hackathon-2nd%20Prize%20Winner-gold)
-![License](https://img.shields.io/badge/License-MIT-green)
+![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python)
+![Web Scraping](https://img.shields.io/badge/Web%20Scraping-BeautifulSoup-green)
+![NLP](https://img.shields.io/badge/NLP-NLTK-orange)
+![Database](https://img.shields.io/badge/Database-SQLite-lightgrey?logo=sqlite)
+![Status](https://img.shields.io/badge/Status-Learning%20Project-purple)
+![License](https://img.shields.io/badge/License-Not%20Specified-red)
 
 ---
 
 ## ✨ Overview
 
-**Millie** is an **AI Co-Pilot for Dutch Bros Broistas**, automating order entry while preserving genuine customer interaction.  
-It listens to live customer–broista conversations, transcribes speech to text, identifies drink orders and modifiers, predicts rush patterns, and updates the POS automatically — *“Automation does the typing; broistas keep the magic.”*
+**JobDescriptionExtractor** is a Python-based project that extracts job descriptions from online job-description pages, cleans the extracted text, stores job-skill information in a SQLite database, and ranks skills based on their frequency across job descriptions.
+
+The project demonstrates a simple end-to-end data extraction pipeline using **web scraping**, **text preprocessing**, **database storage**, and **skill-frequency analysis**.
 
 ---
 
 ## 🎯 Problem Statement
 
-- ⏱️ **Typing steals time:** Manual entry of complex drinks and modifiers is slow and error-prone.  
-- 🕐 **Late customer context:** DutchPass QR is scanned only at checkout, losing personalization opportunities.  
-- 💬 **No “usual” prompt:** No automatic personalization during rush hours.  
-- ⚡ **KDS not proactive:** No shared ETAs or rush alerts between broistas.  
-- 🧩 **Training overhead:** New broistas struggle to learn the manual POS flow.
+Job seekers and recruiters often need to understand which skills are commonly required across different job roles.
+
+Manually reading multiple job descriptions is time-consuming, repetitive, and difficult to compare.
+
+This project solves that problem by automatically extracting job requirements and identifying commonly occurring skills.
 
 ---
 
-## 💡 Solution: *Millie – The Dutch Bros Co-Pilot*
+## 💡 Solution: *Job Description Extractor*
 
 | Feature | Description |
-|----------|--------------|
-| 🎙️ **Voice-to-Order** | Real-time transcription and order parsing from broista–customer speech. |
-| 📊 **DutchPass QR Analytics** | Identifies loyal customers early and preloads favorites. |
-| 🧠 **Smart Recommendation Engine** | Suggests modifiers and “Frequently Bought Together” items. |
-| ⚙️ **KDS Automation** | Syncs drink prep timing across all stations with shared ETAs. |
-| 🔔 **Predictive Ops (Rush Radar)** | Alerts staff of peak times with load-balancing notifications. |
+|----------|-------------|
+| 🌐 **Job Description Scraping** | Scrapes job-description content from online sources using BeautifulSoup. |
+| 🧹 **Text Cleaning** | Removes punctuation and stopwords from extracted job-description text. |
+| 🗃️ **SQLite Storage** | Stores job names and extracted skill descriptions in a local SQLite database. |
+| 🔍 **Skill Matching** | Checks extracted descriptions against a predefined skill list. |
+| 📊 **Skill Ranking** | Ranks skills based on how often they appear across job descriptions. |
 
 ---
 
 ## 🧰 Tech Stack
 
 | Layer | Technologies |
-|-------|---------------|
-| **Frontend** | React.js, Tailwind, WebSocket |
-| **Backend** | FastAPI, Python |
-| **AI / ML** | AWS Transcribe, Claude Sonnet 3.5 (via Bedrock), BERT, Smart Recommender |
-| **Data / Storage** | AWS S3, DynamoDB, Historical CSVs |
-| **Infrastructure** | AWS Lambda, EC2, mTLS Gateway, Docker |
-| **Security** | Server-side SigV4 auth, mTLS encryption |
-| **Analytics** | QR-based customer insights, ETA/rush forecasting |
+|-------|--------------|
+| **Language** | Python |
+| **Web Scraping** | Requests, BeautifulSoup |
+| **NLP / Text Processing** | NLTK, String Processing |
+| **Database** | SQLite |
+| **Data Storage** | Text Files, SQLite Table |
 
 ---
 
-## 🏗️ Technical Architecture
+## 🏗️ Project Workflow
 
-<img width="100%" alt="Dutch Bros Order Processing Architecture" src="https://github.com/user-attachments/assets/ed24a012-922f-4612-b91c-72e649f079b9" />
-
-This architecture shows how **DutchPass (QR)**, **AWS Transcribe**, **Claude Sonnet**, and **FastAPI Gateway** interconnect to automate the order flow — bridging real-world interactions with backend intelligence.
-
----
-
-## ⚙️ Setup Guide
-
-### 1️⃣ Clone Repository
-```bash
-git clone https://gitlab.com/dutchbros/hackathon/team-1/spark.git
-cd spark
-```
-
-### 2️⃣ Configure Environment
-Create a `.env` file in the backend folder:
-```bash
-AWS_REGION=us-west-2
-DUTCH_BROS_API_KEY=your_api_key
-```
-
-### 3️⃣ Install Backend & Frontend Dependencies
-```bash
-cd backend && pip install -r requirements.txt
-cd ../frontend && npm install
-```
-
-## 🧪 Product Demo
-
-<div align="center">
-  <a href="https://www.youtube.com/watch?v=<VIDEO_ID>" target="_blank">
-    <img src="https://github.com/user-attachments/assets/f306f5bf-7d9e-4ab9-8c3c-ef34924c1d78"
-         alt="Millie Product Demo"
-         width="900" />
-  </a>
-</div>
-
----
-
-## 📈 Business Impact
-
-| Metric | Impact |
-|---------|---------|
-| ⏳ **Speed** | Typing removed → Line times drop, especially during peak hours (7–10 AM, 11–2 PM, 7–10 PM). |
-| ✅ **Accuracy** | Drink modifiers and add-ons captured correctly; remakes reduced. |
-| 💬 **Connection** | Broistas stay “eyes-up”; “The Usual” becomes one-tap authentic. |
-| 🧘 **Operational Calm** | Rush Radar + shared ETAs stabilize operations. |
-| 🔐 **Security** | End-to-end encryption with mTLS and SigV4; no exposed AWS keys. |
-
----
-
-## 🚀 Millie 2.0 (Next Phase)
-
-- 🔁 Loyalty API + Personalized Offers  
-- 🔉 Improved noise handling for multi-speaker environments  
-- 📱 Kiosk & Mobile Voice Integration + A/B Testing  
-- 📦 Inventory Forecasting from Real-Time Demand
-
----
-
-## 🧑‍💻 Team 2169 – Arizona State University
-
-| Name | School |
-|------|---------|
-| **Lekshman Babu** | Ira A. Fulton School of Engineering |
-| **Maanesh Mohanraj** | Ira A. Fulton School of Engineering |
-| **Ben Stewart** | Ira A. Fulton School of Engineering |
-| **Vijai Kumar** | Ira A. Fulton School of Engineering |
-| **Jeffrey John Kennedy** | W. P. Carey School of Business |
-
----
-
-## 🪪 License
-
-This project is licensed under the **MIT License**.  
-See `LICENSE` for details.
-
----
-
-> 🧠 *“Automation does the typing; broistas keep the magic.” — Millie, your Dutch Bros Co-Pilot*
+```text
+Online Job Description Website
+        ↓
+first_week.py
+        ↓
+Scrape selected job descriptions
+        ↓
+demo.txt
+        ↓
+second_week.py
+        ↓
+Clean text and remove stopwords
+        ↓
+demo2.txt
+        ↓
+third_week.py
+        ↓
+Store job-skill data in SQLite
+        ↓
+fourth_week.py
+        ↓
+Rank skills by frequency
