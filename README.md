@@ -459,13 +459,6 @@ git push origin feature/your-feature-name
 
 ---
 
-## 📧 Contact
-
-**Project Maintainer:** Maanesh
-- GitHub: [@Maaneshmohanraj](https://github.com/maaneshmohanraj)
-- Email: maaneshmohanraj@gmail.com
-
----
 
 ## 🌟 Star History
 
